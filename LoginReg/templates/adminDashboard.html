@@ -1,0 +1,37 @@
+{% extends "home.html" %}
+
+{% block navbar %}
+    <li>
+        <a class="nav-link" href="{% url "perform_logout" %}">Logout</a>
+    </li>            
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Welcome, {{ admin_name }}</h1>
+    <h2>User List</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Username</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in userlist %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td><a href="{% url 'edit_user' user.pk %}" class="btn btn-primary">Edit</a></td>
+                <td>
+                    <form action="{% url 'delete_user' user.id %}" method="post" class="delete-form">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
