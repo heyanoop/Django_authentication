@@ -86,7 +86,7 @@ def adminDashboard(request):
         return render(request,'adminDashboard.html',{'userlist':user_set, 'admin_name':admin_name} )
     else:
         return redirect('sign_in')
-
+@never_cache
 def delete(request,pk):
     instance= User.objects.get(pk=pk)
     instance.delete()
